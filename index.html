@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ember Starter Kit</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/libs/moment.min.js"></script>
+</head>
+<body>
+  <script type="text/x-handlebars">
+    <h2>Welcome to Ember test app!</h2>
+
+      <div class='navbar'>
+        <ul>
+            <li>{{#link-to 'posts'}}Posts{{/link-to}}</li>  
+            <li>{{#link-to 'about'}}About{{/link-to}}</a></li>  
+            <li>{{#link-to 'superheros'}}Superheros{{/link-to}}</a></li>  
+        
+        </ul>
+      </div>
+      
+    {{outlet}}
+  </script>
+
+<script type="text/x-handlebars" id="post">
+    {{#if isEditing}}
+    {{partial 'post/edit'}}
+        <button {{action 'doneEditing'}}>Done</button>
+    {{else}}
+        <button {{action 'edit'}}>Edit</button>
+    {{/if}}
+    
+    
+    
+    <p>{{{bold title}}}</p>
+     <h2>by {{author.name}} - {{{format-date date}}}</h2>
+    <p>
+        {{excerpt}}
+    </p>
+</script>
+
+
+<script type='text/x-handlebars' id='post/_edit'>
+    <p>{{input type='text' value=title}}</p>
+    <p>{{input type='text' value=excerpt}}</p>
+    <p>{{textarea value=body}}</p>
+</script>
+
+  <script type="text/x-handlebars" id="posts">
+    <p>Recent Posts</p>
+      <div id ='PostContainer'>
+      <ul>
+          {{#each}}
+          {{#link-to 'post' this}}
+      <li>{{title}}: {{author.name}}</li>
+          {{/link-to}}
+      {{/each}}
+        </ul>
+     </div>
+      <div class='span9'>
+          {{outlet}}
+      </div>
+  </script>
+
+<script type="text/x-handlebars" id="superheros">
+    <p>superheros</p>
+      <div id ='superheros'>
+      <ul>
+          {{#each}}
+      <li>{{firstName}}: {{lastName}}</li>
+          <li>{{fullName}}</li>
+      
+      {{/each}}
+        </ul>
+     </div>
+  </script>
+
+
+<script type="text/x-handlebars" id="about">
+    <p>About Steven Haun</p>
+  </script>
+
+  <script src="js/libs/jquery-1.10.2.js"></script>
+  <script src="js/libs/handlebars-1.1.2.js"></script>
+  <script src="js/libs/ember-1.7.0.js"></script>
+  <script src="js/app.js"></script>
+  <!-- to activate the test runner, add the "?test" query string parameter -->
+  <script src="tests/runner.js"></script>
+</body>
+</html>
